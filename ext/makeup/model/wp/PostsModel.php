@@ -25,9 +25,9 @@ class  PostsModel extends  WpModel
         $row = $model->find(33);
         return $row;
     }
-    public function  insert($title ,$url ,$keywords, $thumbnail ,$type)
+    public function  insert($title ,$url ,$keywords, $thumbnail ,$type,$uuid)
     {
-        $date =  date('Y-m-d H:i:s');
+        $date =  date('Y-m-d H:i:s',time()-8*3600);
         $model = new self();
         $model->post_author =1;
         $model->post_date = $date;
@@ -38,7 +38,7 @@ class  PostsModel extends  WpModel
         $model->post_status ='publish';
         $model->comment_status ='open';
         $model->ping_status ='open';
-        $model->post_name =urlencode($title);
+        $model->post_name = $uuid;
         $model->to_ping = ' ';
         $model->pinged = ' ';
         $model->post_content_filtered = ' ';
