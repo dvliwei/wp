@@ -36,13 +36,13 @@ foreach ($makeup_datas as $data){
     $keywords = $data['keywords'];
     $thumbnail = $data['thumbnail'];
     $type = 2;/*视频*/
-
+    $uuid = $data['urlID'];
 
 
 
     //插入数据
     $postModel = new PostsModel();
-    $post_id = $postModel->insert($title ,$url , $keywords ,$thumbnail , $type );
+    $post_id = $postModel->insert($title ,$url , $keywords ,$thumbnail , $type ,$uuid );
 
     if($post_id)
     {
@@ -59,7 +59,7 @@ foreach ($makeup_datas as $data){
 
 
     $str = dd($c);
-    echo   $data['urlID']."ok".$str." \n" ;
+    echo   $uuid."ok".$str." \n" ;
     $c++;
     exit;
 }
