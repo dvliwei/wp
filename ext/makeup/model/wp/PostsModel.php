@@ -41,6 +41,7 @@ class  PostsModel extends  WpModel
         $model->post_name =urlencode($title);
         $model->to_ping = ' ';
         $model->pinged = ' ';
+        $model->post_content_filtered = ' ';
         $model->post_modified =$date;
         $model->post_modified_gmt =$date;
         $model->post_parent =0;
@@ -64,6 +65,9 @@ class  PostsModel extends  WpModel
         $model->comment_status ='closed';
         $model->ping_status ='closed';
         $model->post_name =$id.'-revision-v1';
+        $model->to_ping = ' ';
+        $model->pinged = ' ';
+        $model->post_content_filtered = ' ';
         $model->post_modified =$date;
         $model->post_modified_gmt =$date;
         $model->post_parent =$id;
