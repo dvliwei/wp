@@ -39,6 +39,8 @@ class  PostsModel extends  WpModel
         $model->comment_status ='open';
         $model->ping_status ='open';
         $model->post_name =urlencode($title);
+        $model->to_ping = ' ';
+        $model->pinged = ' ';
         $model->post_modified =$date;
         $model->post_modified_gmt =$date;
         $model->post_parent =0;
