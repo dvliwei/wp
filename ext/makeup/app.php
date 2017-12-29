@@ -21,7 +21,7 @@ include_once('model/makeup/ArticlesModel.php');
 include_once('model/wp/PostsModel.php');
 include_once('model/wp/PostmetaModel.php');
 include_once('model/wp/TermTaxonomyModel.php');
-
+include_once('model/wp/TermrelationshipsModel.php');
 
 //读取数据
 
@@ -38,20 +38,30 @@ foreach ($makeup_datas as $data){
     $type = 2;/*视频*/
 
 
+
+
     //插入数据
     $postModel = new PostsModel();
     $post_id = $postModel->insert($title ,$url , $keywords ,$thumbnail , $type );
 
+    if($post_id)
+    {
 
-    $postmetaModel = new PostmetaModel();
-    $postmetaModel->insert($post_id);
+        $postmetaModel = new PostmetaModel();
+        $postmetaModel->insert($post_id);
 
-    $termModel = new TermTaxonomyModel();
-    $termModel->cumulative_count($type);
+        $termModel = new TermTaxonomyModel();
+        $termModel->cumulative_count($type);
+
+        $termrelationModel= new TermrelationshipsModel();
+        $termrelationModel->insert($post_id);
+    }
+
 
     $str = dd($c);
     echo   $data['urlID']."ok".$str." \n" ;
     $c++;
+    exit;
 }
 
 

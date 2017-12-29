@@ -164,7 +164,7 @@ class Crud {
 	}	
 	
 
-	private function exec($sql, $array = null) {
+	public function exec($sql, $array = null) {
 		
 		if($array !== null) {
 			// Get result with the DB object
