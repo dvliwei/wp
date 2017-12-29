@@ -35,10 +35,10 @@ class DB
      *	2. Connect to database.
      *	3. Creates the parameter array.
      */
-    public function __construct()
+    public function __construct($db)
     {
         $this->log = new Log();
-        $this->Connect();
+        $this->Connect($db);
         $this->parameters = array();
     }
     
@@ -50,10 +50,13 @@ class DB
      *	3. Tries to connect to the database.
      *	4. If connection failed, exception is displayed and a log file gets created.
      */
-    private function Connect()
+    private function Connect($db)
     {
+
         $this->settings = parse_ini_file("settings.ini.php");
-        $dsn            = 'mysql:dbname=' . $this->settings["dbname"] . ';host=' . $this->settings["host"] . '';
+        $dbname = $this->settings["dbname"];
+        if($db===2 && $this->settings["dbname_2"])$dbname = $this->settings["dbname_2"];
+        $dsn            = 'mysql:dbname=' . $dbname . ';host=' . $this->settings["host"] . '';
         try {
             # Read settings from INI file, set UTF8
             $this->pdo = new PDO($dsn, $this->settings["user"], $this->settings["password"], array(
@@ -188,7 +191,7 @@ class DB
         if ($statement === 'select' || $statement === 'show') {
             return $this->sQuery->fetchAll($fetchmode);
         } elseif ($statement === 'insert' || $statement === 'update' || $statement === 'delete') {
-            return $this->sQuery->rowCount();
+            return $this->lastInsertId();
         } else {
             return NULL;
         }

@@ -5,7 +5,7 @@
 * @author		Author: Vivek Wicky Aswal. (https://twitter.com/#!/VivekWickyAswal)
 * @version      0.1a
 */
-require_once(__DIR__ . '/../Db.class.php');
+
 class Crud {
 
 	private $db;
@@ -13,7 +13,7 @@ class Crud {
 	public $variables;
 
 	public function __construct($data = array()) {
-		$this->db =  new DB();	
+		$this->db =  new DB(1);
 		$this->variables  = $data;
 	}
 
@@ -68,7 +68,6 @@ class Crud {
 
 	public function create() { 
 		$bindings   	= $this->variables;
-
 		if(!empty($bindings)) {
 			$fields     =  array_keys($bindings);
 			$fieldsvals =  array(implode(",",$fields),":" . implode(",:",$fields));
@@ -93,13 +92,12 @@ class Crud {
 
 	public function find($id = "") {
 		$id = (empty($this->variables[$this->pk])) ? $id : $this->variables[$this->pk];
-
 		if(!empty($id)) {
-			$sql = "SELECT * FROM " . $this->table ." WHERE " . $this->pk . "= :" . $this->pk . " LIMIT 1";	
-			
+			$sql = "SELECT * FROM " . $this->table ." WHERE " . $this->pk . "= :" . $this->pk . " LIMIT 1";
 			$result = $this->db->row($sql, array($this->pk=>$id));
 			$this->variables = ($result != false) ? $result : null;
 		}
+		return $result;
 	}
 	/**
 	* @param array $fields.
