@@ -61,7 +61,6 @@ foreach ($makeup_datas as $data){
     $str = dd($c);
     echo   $uuid."ok".$str." \n" ;
     $c++;
-    exit;
 }
 
 
