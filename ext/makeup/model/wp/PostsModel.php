@@ -62,7 +62,7 @@ class  PostsModel extends  WpModel
         $model->post_title =$title;
         $model->post_excerpt =$keywords;
         $model->post_status ='inherit';
-        $model->comment_status ='closed';
+        $model->comment_status ='open';
         $model->ping_status ='closed';
         $model->post_name =$id.'-revision-v1';
         $model->to_ping = ' ';
@@ -72,7 +72,8 @@ class  PostsModel extends  WpModel
         $model->post_modified_gmt =$date;
         $model->post_parent =$id;
         $model->guid =$thumbnail;
-        $model->post_type ='revision';
+        $model->post_type ='attachment';
+        $model->post_mime_type ='image/jpeg';
         $model->create();
         return $id;
     }
